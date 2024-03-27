@@ -1,0 +1,12 @@
+[
+    {
+        "id": 1,
+        "titulo": "El Hobbit",
+        "autor": "J.R.R Tolkien"
+    },
+    {
+        "id": 2,
+        "titulo": "Harry Potter",
+        "autor": "J.K Rowling"
+    }
+]

@@ -1,0 +1,14 @@
+[
+    {
+        "id": 1,
+        "nombre": "Jairo",
+        "apellido": "Torres",
+        "fecha_registro": "12/12/2023"
+    },
+    {
+        "id": 2,
+        "nombre": "Gurjant",
+        "apellido": "Singh",
+        "fecha_registro": "02/09/2023"
+    }
+]
