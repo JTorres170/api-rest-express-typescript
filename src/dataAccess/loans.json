@@ -5,6 +5,7 @@
         "id_usuario": 1,
         "fecha_inicio": "12/12/2023",
         "fecha_fin": "13/12/2023",
+        "fecha_entrega": "13/12/2023",
         "estado_prestamo": true
     },
     {
@@ -12,7 +13,8 @@
         "id_libro": 2,
         "id_usuario": 2,
         "fecha_inicio": "05/10/2023",
-        "fecha_fin": "21/8/2023",
+        "fecha_fin": "21/08/2023",
+        "fecha_entrega": "none",
         "estado_prestamo": false
     }
 ]

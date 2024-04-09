@@ -105,5 +105,57 @@ routes.get('/loans-not-returned', loansController.getLoansNotReturned)
  *                      type: boolean
  */
 
+routes.patch('/set-returned/:id', loansController.setLoanReturned)
+/**
+ * @swagger
+ * /loans/set-returned:
+ *   post:
+ *     summary: Modifica el estado del prestamo indicado como devuelto
+ *     description: Modifica los datos de un prestamo en el jdoc
+ *     tags:
+ *      - Loans
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             items:
+ *                 type: object
+ *                 properties:
+ *                   fecha_entrega:
+ *                     type: string
+ *     responses:
+ *       '200':
+ *         description: Prestamo modificado con éxito.
+ *       '404':
+ *         description: No se encontró el prestamo con el ID proporcionado.
+ */
+
+routes.patch('/set-end-date/:id', loansController.setLoanEndDate)
+/**
+ * @swagger
+ * /loans/set-end-date:
+ *   post:
+ *     summary: Modifica la fecha final del prestamo
+ *     description: Modifica los datos de un prestamo en el jdoc
+ *     tags:
+ *      - Loans
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               fecha_fin:
+ *                 type: string
+ *     responses:
+ *       '200':
+ *         description: Prestamo modificado con éxito.
+ *       '404':
+ *         description: No se encontró el prestamo con el ID proporcionado.
+ */
+
 // Linea importante
 export default routes

@@ -38,9 +38,9 @@ export class BooksController {
     }
 
     removeBook = (req: Request, res: Response) => {
-        const removeID = req.path;
+        const removeID = parseInt(req.params.id);
         const idLibros = books.map(book => book.id);
-        const id = idLibros.indexOf(Number(removeID));
+        const id = idLibros.indexOf(removeID);
 
         if (id !== -1) {
             books.splice(id, 1);
@@ -51,7 +51,7 @@ export class BooksController {
     }
 
     updateBook = (req: Request, res: Response) => {
-        const updateID = req.body.id;
+        const updateID = parseInt(req.params.id);
         const updateData = req.body;
         const idLibros = books.map(book => book.id);
         const id = idLibros.indexOf(updateID);

@@ -69,7 +69,7 @@ routes.post('/add-book', booksController.addBook)
  *                   type: string
  */
 
-routes.delete('/remove-book', booksController.removeBook)
+routes.delete('/remove-book/:id', booksController.removeBook)
 /**
  * @swagger
  * /books/remove-book:
@@ -85,8 +85,6 @@ routes.delete('/remove-book', booksController.removeBook)
  *           schema:
  *             type: object
  *             properties:
- *               id:
- *                 type: integer
  *     responses:
  *       '200':
  *         description: Libro eliminado con éxito.
@@ -94,7 +92,7 @@ routes.delete('/remove-book', booksController.removeBook)
  *         description: No se encontró el libro con el ID proporcionado.
  */
 
-routes.post('/update-book', booksController.updateBook)
+routes.put('/update-book/:id', booksController.updateBook)
 /**
  * @swagger
  * /books/update-book:
@@ -110,8 +108,6 @@ routes.post('/update-book', booksController.updateBook)
  *           schema:
  *             type: object
  *             properties:
- *               id:
- *                 type: integer
  *               titulo:
  *                 type: string
  *               autor:

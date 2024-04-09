@@ -39,7 +39,7 @@ export class UsersController {
     }
 
     removeUser = (req: Request, res: Response) => {
-        const removeID = req.body.id;
+        const removeID = parseInt(req.params.id);
         const idUsers = users.map(user => user.id);
         const id = idUsers.indexOf(removeID);
 
@@ -52,7 +52,7 @@ export class UsersController {
     }
 
     updateUser = (req: Request, res: Response) => {
-        const updateID = req.body.id;
+        const updateID = parseInt(req.params.id);
         const updateData = req.body;
         const idUsers = users.map(user => user.id);
         const id = idUsers.indexOf(updateID);

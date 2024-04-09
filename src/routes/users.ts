@@ -71,7 +71,7 @@ routes.post('/add-user', usersController.addUser)
  *                   type: string
  */
 
-routes.delete('/remove-user', usersController.removeUser)
+routes.delete('/remove-user/:id', usersController.removeUser)
 /**
  * @swagger
  * /users/remove-user:
@@ -87,8 +87,6 @@ routes.delete('/remove-user', usersController.removeUser)
  *           schema:
  *             type: object
  *             properties:
- *               id:
- *                 type: integer
  *     responses:
  *       '200':
  *         description: Usuario eliminado con éxito.
@@ -96,7 +94,7 @@ routes.delete('/remove-user', usersController.removeUser)
  *         description: No se encontró el usuario con el ID proporcionado.
  */
 
-routes.post('/update-user', usersController.updateUser)
+routes.put('/update-user/:id', usersController.updateUser)
 /**
  * @swagger
  * /users/update-user:
@@ -112,8 +110,6 @@ routes.post('/update-user', usersController.updateUser)
  *           schema:
  *             type: object
  *             properties:
- *               id:
- *                 type: integer
  *               nombre:
  *                 type: string
  *               apellido:
