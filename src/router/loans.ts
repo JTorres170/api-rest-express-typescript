@@ -1,12 +1,12 @@
 import express from 'express';
 import { LoansController } from '../controllers/loansController'
 
-const routes = express.Router();
-routes.use(express.json());
+const router = express.Router();
+router.use(express.json());
 
 const loansController = new LoansController
 
-routes.get('/loans', loansController.getLoans)
+router.get('/loans', loansController.getLoans)
 /**
  * @swagger
  * /loans/loans:
@@ -35,11 +35,13 @@ routes.get('/loans', loansController.getLoans)
  *                      type: string
  *                   fecha_fin:
  *                      type: string
+ *                   fecha_entrega:
+ *                      type: string
  *                   estado_prestamo:
  *                      type: boolean
  */
 
-routes.get('/loans-returned', loansController.getLoansReturned)
+router.get('/loans-returned', loansController.getLoansReturned)
 /**
  * @swagger
  * /loans/loans-returned:
@@ -72,7 +74,7 @@ routes.get('/loans-returned', loansController.getLoansReturned)
  *                      type: boolean
  */
 
-routes.get('/loans-not-returned', loansController.getLoansNotReturned)
+router.get('/loans-not-returned', loansController.getLoansNotReturned)
 /**
  * @swagger
  * /loans/loans-not-returned:
@@ -105,26 +107,22 @@ routes.get('/loans-not-returned', loansController.getLoansNotReturned)
  *                      type: boolean
  */
 
-routes.patch('/set-returned/:id', loansController.setLoanReturned)
+router.patch('/set-returned', loansController.setLoanReturned)
 /**
  * @swagger
  * /loans/set-returned:
- *   post:
+ *   patch:
  *     summary: Modifica el estado del prestamo indicado como devuelto
  *     description: Modifica los datos de un prestamo en el jdoc
  *     tags:
  *      - Loans
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             items:
- *                 type: object
- *                 properties:
- *                   fecha_entrega:
- *                     type: string
+ *     parameters:
+ *       - in: query
+ *         name: id
+ *         description: ID del préstamo a modificar.
+ *         required: true
+ *         schema:
+ *           type: integer
  *     responses:
  *       '200':
  *         description: Prestamo modificado con éxito.
@@ -132,15 +130,22 @@ routes.patch('/set-returned/:id', loansController.setLoanReturned)
  *         description: No se encontró el prestamo con el ID proporcionado.
  */
 
-routes.patch('/set-end-date/:id', loansController.setLoanEndDate)
+router.patch('/set-end-date', loansController.setLoanEndDate)
 /**
  * @swagger
  * /loans/set-end-date:
- *   post:
+ *   patch:
  *     summary: Modifica la fecha final del prestamo
  *     description: Modifica los datos de un prestamo en el jdoc
  *     tags:
  *      - Loans
+ *     parameters:
+ *       - in: query
+ *         name: id
+ *         description: ID del préstamo a modificar.
+ *         required: true
+ *         schema:
+ *           type: integer
  *     requestBody:
  *       required: true
  *       content:
@@ -157,5 +162,95 @@ routes.patch('/set-end-date/:id', loansController.setLoanEndDate)
  *         description: No se encontró el prestamo con el ID proporcionado.
  */
 
+router.get('/loans-by-user', loansController.getLoansByUser)
+/**
+ * @swagger
+ * /loans/loans-by-user:
+ *   get:
+ *     summary: Devuelve todos los prestamos de un usuario
+ *     description: Lee el archivo json de los prestamos e imprime prestamos de un usuario
+ *     tags:
+ *      - Loans
+ *     parameters:
+ *       - in: query
+ *         name: id_usuario
+ *         description: ID del usuario al cual accedemos.
+ *         required: true
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       '200':
+ *         description: Éxito, devuelve una lista de prestamos del usuario.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   id:
+ *                     type: integer
+ *                   id_libro:
+ *                     type: integer
+ *                   id_usuario:
+ *                     type: integer
+ *                   fecha_inicio:
+ *                      type: string
+ *                   fecha_fin:
+ *                      type: string
+ *                   estado_prestamo:
+ *                      type: boolean
+ */
+
+router.post("/add-loan", loansController.addLoan)
+/**
+ * @swagger
+ * /loans/add-loan:
+ *   post:
+ *     summary: Guarda un nuevo prestamo
+ *     description: Añade un prestamo al archivo json que almacena estos
+ *     tags:
+ *      - Loans
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               id_libro:
+ *                 type: integer
+ *               id_usuario:
+ *                 type: integer
+ *               fecha_inicio:
+ *                 type: string
+ *               fecha_fin:
+ *                 type: string
+ *               fecha_entrega:
+ *                 type: string
+ *               estado_prestamo:
+ *                 type: boolean
+ *     responses:
+ *       '200':
+ *         description: Prestamo añadido con éxito.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 id:
+ *                   type: integer
+ *                 id_usuario:
+ *                   type: integer
+ *                 fecha_inicio:
+ *                   type: string
+ *                 fecha_fin:
+ *                   type: string
+ *                 fecha_entrega:
+ *                   type: string
+ *                 estado_prestamo:
+ *                   type: boolean
+ */
+
 // Linea importante
-export default routes
+export default router

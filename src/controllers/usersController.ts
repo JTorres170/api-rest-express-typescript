@@ -39,9 +39,9 @@ export class UsersController {
     }
 
     removeUser = (req: Request, res: Response) => {
-        const removeID = parseInt(req.params.id);
+        const removeID = req.query.id as string;
         const idUsers = users.map(user => user.id);
-        const id = idUsers.indexOf(removeID);
+        const id = idUsers.indexOf(parseInt(removeID));
 
         if (id !== -1) {
             users.splice(id, 1);
@@ -52,10 +52,10 @@ export class UsersController {
     }
 
     updateUser = (req: Request, res: Response) => {
-        const updateID = parseInt(req.params.id);
+        const updateID = req.query.id as string;
         const updateData = req.body;
         const idUsers = users.map(user => user.id);
-        const id = idUsers.indexOf(updateID);
+        const id = idUsers.indexOf(parseInt(updateID));
 
         if (id !== -1) {
             users[id] = {...users[id],...updateData};

@@ -3,9 +3,9 @@ import express, { Request, Response } from 'express';
 import swaggerUi from 'swagger-ui-express'
 import swaggerSpec from './swagger';
 
-import books from "./routes/books"
-import users from "./routes/users"
-import loans from "./routes/loans"
+import books from "./router/books"
+import users from "./router/users"
+import loans from "./router/loans"
 
 const app = express();
 const PORT = 3000;

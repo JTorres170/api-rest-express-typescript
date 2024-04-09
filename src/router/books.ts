@@ -1,12 +1,12 @@
 import express from 'express';
 import { BooksController } from '../controllers/booksController'
 
-const routes = express.Router();
-routes.use(express.json());
+const router = express.Router();
+router.use(express.json());
 
 const booksController = new BooksController
 
-routes.get('/books', booksController.getBooks)
+router.get('/books', booksController.getBooks)
 /**
  * @swagger
  * /books/books:
@@ -33,7 +33,7 @@ routes.get('/books', booksController.getBooks)
  *                     type: string
  */
 
-routes.post('/add-book', booksController.addBook)
+router.post('/add-book', booksController.addBook)
 /**
  * @swagger
  * /books/add-book:
@@ -69,7 +69,7 @@ routes.post('/add-book', booksController.addBook)
  *                   type: string
  */
 
-routes.delete('/remove-book/:id', booksController.removeBook)
+router.delete('/remove-book', booksController.removeBook)
 /**
  * @swagger
  * /books/remove-book:
@@ -78,13 +78,13 @@ routes.delete('/remove-book/:id', booksController.removeBook)
  *     description: Elimina un libro del json en base a la id recibida
  *     tags:
  *      - Books
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
+ *     parameters:
+ *       - in: query
+ *         name: id
+ *         description: ID del libro a eliminar.
+ *         required: true
+ *         schema:
+ *           type: integer
  *     responses:
  *       '200':
  *         description: Libro eliminado con éxito.
@@ -92,15 +92,22 @@ routes.delete('/remove-book/:id', booksController.removeBook)
  *         description: No se encontró el libro con el ID proporcionado.
  */
 
-routes.put('/update-book/:id', booksController.updateBook)
+router.put('/update-book', booksController.updateBook)
 /**
  * @swagger
  * /books/update-book:
- *   post:
+ *   put:
  *     summary: Modifica los datos de un libro
  *     description: Modifica los datos de un libro en el jdoc
  *     tags:
  *      - Books
+ *     parameters:
+ *       - in: query
+ *         name: id
+ *         description: ID del libro a modificar.
+ *         required: true
+ *         schema:
+ *           type: integer
  *     requestBody:
  *       required: true
  *       content:
@@ -120,4 +127,4 @@ routes.put('/update-book/:id', booksController.updateBook)
  */
 
 // Linea importante
-export default routes
+export default router

@@ -38,9 +38,9 @@ export class BooksController {
     }
 
     removeBook = (req: Request, res: Response) => {
-        const removeID = parseInt(req.params.id);
+        const removeID = req.query.id as string;
         const idLibros = books.map(book => book.id);
-        const id = idLibros.indexOf(removeID);
+        const id = idLibros.indexOf(parseInt(removeID));
 
         if (id !== -1) {
             books.splice(id, 1);
@@ -51,10 +51,10 @@ export class BooksController {
     }
 
     updateBook = (req: Request, res: Response) => {
-        const updateID = parseInt(req.params.id);
+        const updateID = req.query.id as string;
         const updateData = req.body;
         const idLibros = books.map(book => book.id);
-        const id = idLibros.indexOf(updateID);
+        const id = idLibros.indexOf(parseInt(updateID));
 
         if (id !== -1) {
             books[id] = {...books[id],...updateData};

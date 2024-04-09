@@ -1,12 +1,12 @@
 import express from 'express';
 import { UsersController } from '../controllers/usersController'
 
-const routes = express.Router();
-routes.use(express.json());
+const router = express.Router();
+router.use(express.json());
 
 const usersController = new UsersController
 
-routes.get('/users', usersController.getUsers)
+router.get('/users', usersController.getUsers)
 /**
  * @swagger
  * /users/users:
@@ -35,7 +35,7 @@ routes.get('/users', usersController.getUsers)
  *                      type: string
  */
 
-routes.post('/add-user', usersController.addUser)
+router.post('/add-user', usersController.addUser)
 /**
  * @swagger
  * /users/add-user:
@@ -71,7 +71,7 @@ routes.post('/add-user', usersController.addUser)
  *                   type: string
  */
 
-routes.delete('/remove-user/:id', usersController.removeUser)
+router.delete('/remove-user', usersController.removeUser)
 /**
  * @swagger
  * /users/remove-user:
@@ -80,13 +80,13 @@ routes.delete('/remove-user/:id', usersController.removeUser)
  *     description: Elimina un usuario del json en base a la id recibida
  *     tags:
  *      - Users
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
+ *     parameters:
+ *       - in: query
+ *         name: id
+ *         description: ID del usuario a eliminar.
+ *         required: true
+ *         schema:
+ *           type: integer
  *     responses:
  *       '200':
  *         description: Usuario eliminado con éxito.
@@ -94,15 +94,22 @@ routes.delete('/remove-user/:id', usersController.removeUser)
  *         description: No se encontró el usuario con el ID proporcionado.
  */
 
-routes.put('/update-user/:id', usersController.updateUser)
+router.put('/update-user', usersController.updateUser)
 /**
  * @swagger
  * /users/update-user:
- *   post:
+ *   put:
  *     summary: Modifica los datos de un usuario
  *     description: Modifica los datos de un usuario en el jdoc
  *     tags:
  *      - Users
+ *     parameters:
+ *       - in: query
+ *         name: id
+ *         description: ID del usuario a modificar.
+ *         required: true
+ *         schema:
+ *           type: integer
  *     requestBody:
  *       required: true
  *       content:
@@ -122,4 +129,4 @@ routes.put('/update-user/:id', usersController.updateUser)
  */
 
 // Linea importante
-export default routes
+export default router
