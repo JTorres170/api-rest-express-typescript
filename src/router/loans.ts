@@ -123,6 +123,15 @@ router.patch('/set-returned', loansController.setLoanReturned)
  *         required: true
  *         schema:
  *           type: integer
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               fecha_entrega:
+ *                 type: string
  *     responses:
  *       '200':
  *         description: Prestamo modificado con éxito.

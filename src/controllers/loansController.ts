@@ -19,13 +19,21 @@ export class LoansController {
     getLoansReturned(_req: Request, res: Response) {
         const loansReturned = loans.filter(loan => loan.estado_prestamo === true)
 
-        res.status(200).json(loansReturned)
+        if (loansReturned) {
+            res.status(200).json(loansReturned)
+        } else {
+            res.status(404).json({mensaje: 'No se encontro ningun prestamo devuelto'})
+        }
     }
 
     getLoansNotReturned(_req: Request, res: Response) {
         const loansReturned = loans.filter(loan => loan.estado_prestamo === false)
 
-        res.status(200).json(loansReturned)
+        if (loansReturned) {
+            res.status(200).json(loansReturned)
+        } else {
+            res.status(404).json({mensaje: 'No se encontro ningun prestamo sin devuelver'})
+        }
     }
 
     setLoanReturned(req: Request, res: Response) {
@@ -35,12 +43,13 @@ export class LoansController {
         const idLoans = loans.map(loan => loan.id);
         const id = idLoans.indexOf(parseInt(loanID));
 
-        if (id !== -1) {
+        if (id !== -1 && loans[id].estado_prestamo == false) {
             loans[id].estado_prestamo = true;
             loans[id].fecha_entrega = loanReturnDate;
             res.status(200).json({mensaje:'Prestamo modificado con exito.'});
         } else {
-            res.status(404).json({mensaje:'No se encontró el prestamo con el ID proporcionado.'});
+            res.status(404).json({mensaje:
+                'No se encontró el prestamo con el ID proporcionado o este ya estaba devuelto'});
         }
     }
 
@@ -50,7 +59,7 @@ export class LoansController {
         const idLoans = loans.map(loan => loan.id);
         const id = idLoans.indexOf(parseInt(loanID));
 
-        if (id !== -1) {
+        if (id !== -1 && loanEndDate) {
             loans[id].fecha_fin = loanEndDate;
             res.status(200).json({mensaje:'Prestamo modificado con exito.'});
         } else {
@@ -62,7 +71,11 @@ export class LoansController {
         const userID = req.query.id_usuario as string
         const loansUser = loans.filter(loan => loan.id_usuario === parseInt(userID))
 
-        res.status(200).json(loansUser)
+        if (userID) {
+            res.status(200).json(loansUser)
+        } else {
+            res.status(404).json({mensaje:'No se encontró el usuario con el ID proporcionado.'});
+        }
     }
 
     addLoan(req: Request, res: Response) {
