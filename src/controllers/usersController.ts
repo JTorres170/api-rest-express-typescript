@@ -6,7 +6,7 @@ import jwt from 'jsonwebtoken'
 import userData from '../dataAccess/users.json'
 
 const users: UserEntry[] = userData as UserEntry[]
-const secretKey = "ultrasecretpassword"
+const secretKey = "ultrasecretpassword1234_-*/"
 
 // Extends the Request to recognise the variable username
 declare global {
