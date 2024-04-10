@@ -9,8 +9,8 @@ export type newBookEntry = Omit<BookEntry, "id">
 // USERS
 export interface UserEntry {
     id: number,
-    nombre: string,
-    apellido: string,
+    username: string,
+    password: string,
     fecha_registro: string
 }
 export type newUserEntry = Omit<UserEntry, "id">

@@ -128,5 +128,8 @@ router.put('/update-user', usersController.updateUser)
  *         description: No se encontró el usuario con el ID proporcionado.
  */
 
+router.post('/login', usersController.login)
+router.get('/protected', usersController.protected)
+
 // Linea importante
 export default router
