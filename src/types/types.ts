@@ -1,3 +1,4 @@
+// BOOKS
 export interface BookEntry {
     id: number,
     titulo: string,
@@ -5,6 +6,7 @@ export interface BookEntry {
 }
 export type newBookEntry = Omit<BookEntry, "id">
 
+// USERS
 export interface UserEntry {
     id: number,
     nombre: string,
@@ -13,6 +15,7 @@ export interface UserEntry {
 }
 export type newUserEntry = Omit<UserEntry, "id">
 
+// LOANS
 export interface LoanEntry {
     id: number,
     id_libro: number,

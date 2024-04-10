@@ -5,9 +5,11 @@ import loanData from '../dataAccess/loans.json'
 
 const loans: LoanEntry[] = loanData as LoanEntry[]
 
+// Class with every function to use
 export class LoansController {
     constructor() {}
 
+    // Returns every loan stored
     getLoans(_req: Request, res: Response) {
         if (loans) {
             res.status(200).json(loans)
@@ -16,6 +18,7 @@ export class LoansController {
         }
     }
 
+    // Returns just the loans that are returned
     getLoansReturned(_req: Request, res: Response) {
         const loansReturned = loans.filter(loan => loan.estado_prestamo === true)
 
@@ -26,6 +29,7 @@ export class LoansController {
         }
     }
 
+    // Return just the loans that are not returned
     getLoansNotReturned(_req: Request, res: Response) {
         const loansReturned = loans.filter(loan => loan.estado_prestamo === false)
 
@@ -36,6 +40,8 @@ export class LoansController {
         }
     }
 
+    // Set the loans from no returned to returned. It also request the data of return
+    // and set it as well
     setLoanReturned(req: Request, res: Response) {
         const loanID = req.query.id as string;
         const loanReturnDate = req.body.fecha_entrega;
@@ -53,6 +59,7 @@ export class LoansController {
         }
     }
 
+    // Update the end date, to increase the time of the loan
     setLoanEndDate(req: Request, res: Response) {
         const loanID = req.query.id as string;
         const loanEndDate = req.body.fecha_fin;
@@ -67,6 +74,7 @@ export class LoansController {
         }
     }
 
+    // Return every loan of the user with the id that you want
     getLoansByUser(req: Request, res: Response) {
         const userID = req.query.id_usuario as string
         const loansUser = loans.filter(loan => loan.id_usuario === parseInt(userID))
@@ -78,6 +86,7 @@ export class LoansController {
         }
     }
 
+    // Add a new loan with every data requested. The id is updated by itself
     addLoan(req: Request, res: Response) {
         // Declarar los datos para el nuevo prestamo
         const {id_libro, id_usuario, fecha_inicio, fecha_fin, fecha_entrega, estado_prestamo}

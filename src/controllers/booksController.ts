@@ -5,9 +5,11 @@ import bookData from '../dataAccess/books.json'
 
 const books: BookEntry[] = bookData as BookEntry[]
 
+// Class with every function to use
 export class BooksController {
     constructor() {}
 
+    // Return every book stored
     getBooks(_req: Request, res: Response) {
         if (books) {
             res.status(200).json(books)
@@ -16,6 +18,7 @@ export class BooksController {
         }
     }
 
+    // Add a new book with the data. The id is updated by itself
     addBook = (req: Request, res: Response) => {
         // Declarar los datos para el nuevo libro
         const {titulo, autor} = req.body
@@ -37,6 +40,7 @@ export class BooksController {
         res.status(200).json(newBook);
     }
 
+    // Remove the book with the id requested from the storage
     removeBook = (req: Request, res: Response) => {
         const removeID = req.query.id as string;
         const idLibros = books.map(book => book.id);
@@ -50,6 +54,7 @@ export class BooksController {
         }
     }
 
+    // Change the data that you want to update from the book with the id requested
     updateBook = (req: Request, res: Response) => {
         const updateID = req.query.id as string;
         const updateData = req.body;

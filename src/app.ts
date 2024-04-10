@@ -14,18 +14,18 @@ const PORT = 3000;
 app.use(express.json());
 app.use(express.static(path.join('public')));
 
-// Get predeterminado
+// Get default
 app.get('/', (_req: Request, res: Response) => {
   res.send(path.join('index.html'));
   console.log('Prueba correcta!')
 });
 
-// Implementar routes
+// Implement routers
 app.use("/books", books)
 app.use("/users", users)
 app.use("/loans", loans)
 
-// Implementar swagger
+// Implement swagger
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec))
 
 // Listener

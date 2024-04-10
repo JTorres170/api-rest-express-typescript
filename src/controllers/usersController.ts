@@ -5,9 +5,11 @@ import userData from '../dataAccess/users.json'
 
 const users: UserEntry[] = userData as UserEntry[]
 
+// Class with every function to use
 export class UsersController {
     constructor() {}
 
+    // Return every user stored
     getUsers(_req: Request, res: Response) {
         if (users) {
             res.status(200).json(users)
@@ -16,6 +18,7 @@ export class UsersController {
         }
     }
 
+    // Add a new user with the data. The id is updated by itself
     addUser = (req: Request, res: Response) => {
         // Declarar los datos para el nuevo usuario
         const {nombre, apellido, fecha_registro} = req.body
@@ -38,6 +41,7 @@ export class UsersController {
         res.status(200).json(newUser);
     }
 
+    // Remove the user with the id requested from the storage
     removeUser = (req: Request, res: Response) => {
         const removeID = req.query.id as string;
         const idUsers = users.map(user => user.id);
@@ -51,6 +55,7 @@ export class UsersController {
         }
     }
 
+    // Change the data that you want to update from the user with the id requested
     updateUser = (req: Request, res: Response) => {
         const updateID = req.query.id as string;
         const updateData = req.body;
