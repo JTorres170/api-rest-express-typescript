@@ -6,15 +6,15 @@ import jwt from 'jsonwebtoken'
 import userData from '../dataAccess/users.json'
 
 const users: UserEntry[] = userData as UserEntry[]
-const secretKey = "secret"
+const secretKey = "ultrasecretpassword"
 
 // Extends the Request to recognise the variable username
 declare global {
-  namespace Express {
-    interface Request {
-      username?: string;
+    namespace Express {
+        interface Request {
+            username?: string;
+        }
     }
-  }
 }
 
 // Class with every function to use
@@ -36,6 +36,7 @@ export class UsersController {
                 if (userData[i].username === username && userData[i].password === password) {
                     authenticated = true
                     const token = jwt.sign({ username }, secretKey, { expiresIn: "1h" });
+
                     return res.status(200).json({ token });
                 }
             }
@@ -123,7 +124,7 @@ export class UsersController {
 function verifyToken(req: Request, res: Response, next: NextFunction) {
     const header = req.header("Authorization") || "";
     const token = header.split(" ")[1];
-    
+    console.log(token)
     if (!token) {
         return res.status(401).json({ message: "Token not provied" });
     }

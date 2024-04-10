@@ -27,9 +27,9 @@ router.get('/users', usersController.getUsers)
  *                 properties:
  *                   id:
  *                     type: integer
- *                   nombre:
+ *                   username:
  *                     type: string
- *                   apellido:
+ *                   password:
  *                     type: string
  *                   fecha_registro:
  *                      type: string
@@ -51,9 +51,11 @@ router.post('/add-user', usersController.addUser)
  *           schema:
  *             type: object
  *             properties:
- *               nombre:
+ *               username:
  *                 type: string
- *               apellido:
+ *               password:
+ *                 type: string
+ *               fecha_registro:
  *                 type: string
  *     responses:
  *       '200':
@@ -65,9 +67,11 @@ router.post('/add-user', usersController.addUser)
  *               properties:
  *                 id:
  *                   type: integer
- *                 nombre:
+ *                 username:
  *                   type: string
- *                 apellido:
+ *                 password:
+ *                   type: string
+ *                 fecha_registro:
  *                   type: string
  */
 
@@ -117,9 +121,11 @@ router.put('/update-user', usersController.updateUser)
  *           schema:
  *             type: object
  *             properties:
- *               nombre:
+ *               username:
  *                 type: string
- *               apellido:
+ *               password:
+ *                 type: string
+ *               fecha_registro:
  *                 type: string
  *     responses:
  *       '200':
@@ -129,7 +135,54 @@ router.put('/update-user', usersController.updateUser)
  */
 
 router.post('/login', usersController.login)
+/**
+ * @swagger
+ * /users/login:
+ *   post:
+ *     summary: Logea en la web
+ *     description: Logea en la web y genera un token de autentificacion
+ *     tags:
+ *      - Users
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               username:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *     responses:
+ *       '200':
+ *         description: Usuario modificado con éxito.
+ *       '404':
+ *         description: No se encontró el usuario con el ID proporcionado.
+ */
+
 router.get('/protected', usersController.protected)
+/**
+ * @swagger
+ * /users/protected:
+ *   get:
+ *     summary: Verifica el token del usuario 
+ *     description: Mediante la verificación del token, te hace saber si tienes acceso o no.
+ *     tags:
+ *      - Users
+ *     parameters:
+ *       - in: header
+ *         name: Authorization
+ *         description: Token de autenticación Bearer.
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       '200':
+ *         description: Usuario autenticado con éxito.
+ *       '401':
+ *         description: No autorizado, el token es inválido o no se proporcionó.
+ */
 
 // Linea importante
 export default router
