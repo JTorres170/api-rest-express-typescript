@@ -1,21 +1,13 @@
-import { UserEntry, newUserEntry } from "../types/types";
-import { Request, Response, NextFunction } from 'express';
+import { UserEntry, newUserEntry } from "../types/";
+import { Request, Response } from 'express';
 
 import jwt from 'jsonwebtoken'
 
+// Imports data
 import userData from '../dataAccess/users.json'
 
 const users: UserEntry[] = userData as UserEntry[]
 const secretKey = "ultrasecretpassword1234_-*/"
-
-// Extends the Request to recognise the variable username
-declare global {
-    namespace Express {
-        interface Request {
-            username?: string;
-        }
-    }
-}
 
 // Class with every function to use
 export class UsersController {
@@ -36,6 +28,7 @@ export class UsersController {
                 if (userData[i].username === username && userData[i].password === password) {
                     authenticated = true
                     const token = jwt.sign({ username }, secretKey, { expiresIn: "1h" });
+                    res.cookie('token', token, {httpOnly: true, expires: new Date(Date.now() + 3600000)})
 
                     return res.status(200).json({ token });
                 }
@@ -53,9 +46,7 @@ export class UsersController {
     // Verifys the token and let you know if it is correct or not by using the
     // verifyToken function
     protected(_req: Request, res: Response) {
-        verifyToken (_req, res, () => {
-            return res.status(200).json({ message: "You have access" });
-        })
+        return res.status(200).json({ message: "You have access" });
     };
     
     // Return every user stored
@@ -117,24 +108,5 @@ export class UsersController {
         } else {
             res.status(404).json({mensaje:'No se encontró el usuario con el ID proporcionado.'});
         }
-    }
-}
-
-// Function that verify the token generated at the login method
-function verifyToken(req: Request, res: Response, next: NextFunction) {
-    const header = req.header("Authorization") || "";
-    const token = header.split(" ")[1];
-    console.log(token)
-    if (!token) {
-        return res.status(401).json({ message: "Token not provied" });
-    }
-    
-    try {
-        const payload = jwt.verify(token, secretKey) as { username: string };
-        req.username = payload.username;
-        next();
-        return;
-    } catch (error) {
-        return res.status(403).json({ message: "Token not valid" });
     }
 }

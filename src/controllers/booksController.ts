@@ -1,4 +1,4 @@
-import { BookEntry, newBookEntry } from "../types/types";
+import { BookEntry, newBookEntry } from "../types/";
 import { Request, Response } from 'express';
 
 import bookData from '../dataAccess/books.json'

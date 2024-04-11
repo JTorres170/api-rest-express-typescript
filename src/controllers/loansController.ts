@@ -1,4 +1,4 @@
-import { LoanEntry, newLoanEntry } from "../types/types";
+import { LoanEntry, newLoanEntry } from "../types/";
 import { Request, Response } from 'express';
 
 import loanData from '../dataAccess/loans.json'

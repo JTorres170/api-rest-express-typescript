@@ -1,12 +1,12 @@
-import express from 'express';
-import { UsersController } from '../controllers/usersController'
+import express from "express";
+import { UsersController } from "../controllers/usersController";
 
 const router = express.Router();
 router.use(express.json());
 
-const usersController = new UsersController
+const usersController = new UsersController();
 
-router.get('/users', usersController.getUsers)
+router.get("/users", usersController.getUsers);
 /**
  * @swagger
  * /users/users:
@@ -35,7 +35,7 @@ router.get('/users', usersController.getUsers)
  *                      type: string
  */
 
-router.post('/add-user', usersController.addUser)
+router.post("/add-user", usersController.addUser);
 /**
  * @swagger
  * /users/add-user:
@@ -75,7 +75,7 @@ router.post('/add-user', usersController.addUser)
  *                   type: string
  */
 
-router.delete('/remove-user', usersController.removeUser)
+router.delete("/remove-user", usersController.removeUser);
 /**
  * @swagger
  * /users/remove-user:
@@ -98,7 +98,7 @@ router.delete('/remove-user', usersController.removeUser)
  *         description: No se encontró el usuario con el ID proporcionado.
  */
 
-router.put('/update-user', usersController.updateUser)
+router.put("/update-user", usersController.updateUser);
 /**
  * @swagger
  * /users/update-user:
@@ -134,7 +134,7 @@ router.put('/update-user', usersController.updateUser)
  *         description: No se encontró el usuario con el ID proporcionado.
  */
 
-router.post('/login', usersController.login)
+router.post("/login", usersController.login);
 /**
  * @swagger
  * /users/login:
@@ -161,12 +161,12 @@ router.post('/login', usersController.login)
  *         description: No se encontró el usuario con el ID proporcionado.
  */
 
-router.get('/protected', usersController.protected)
+router.get("/protected", usersController.protected);
 /**
  * @swagger
  * /users/protected:
  *   get:
- *     summary: Verifica el token del usuario 
+ *     summary: Verifica el token del usuario
  *     description: Mediante la verificación del token, te hace saber si tienes acceso o no.
  *     tags:
  *      - Users
@@ -185,4 +185,4 @@ router.get('/protected', usersController.protected)
  */
 
 // Linea importante
-export default router
+export default router;
