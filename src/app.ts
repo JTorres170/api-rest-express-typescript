@@ -1,16 +1,17 @@
 import express, { Request, Response } from 'express';
-import { verifyToken } from './middlewares/authorizer';
-
-import swaggerUi from 'swagger-ui-express'
-import swaggerSpec from './swagger';
-
 import cookieParser from 'cookie-parser';
 import path from 'path'
+
+import swaggerDocs from './utils/swagger';
+//import { verifyToken } from './middlewares/authorizer';
+import logger from './utils/logger';
 
 import books from "./router/books"
 import users from "./router/users"
 import loans from "./router/loans"
+import auth from "./router/auth"
 
+// Basic variables
 const app = express();
 const PORT = 3000;
 
@@ -18,23 +19,25 @@ const PORT = 3000;
 app.use(express.json());
 app.use(express.static(path.join('public')));
 app.use(cookieParser())
-app.use(verifyToken)
+
+// Implement verifier
+//app.use(verifyToken)
 
 // Implement routers
 app.use("/books", books)
 app.use("/users", users)
 app.use("/loans", loans)
-
-// Implement swagger
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec))
+app.use("/auth", auth)
 
 // Get default
 app.get('/', (_req: Request, res: Response) => {
   res.send(path.join('index.html'));
-  console.log('Prueba correcta!')
 });
 
 // Listener
 app.listen(PORT, () => {
-  console.log(`Servidor corriendo en http://localhost:${PORT}`);
+  logger.info(`App is running at http://localhost:${PORT}`);
+  
+  // Implement swagger
+  swaggerDocs(app, PORT)
 });

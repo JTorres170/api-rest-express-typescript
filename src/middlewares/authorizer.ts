@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
-import {} from '../types/types'
-
 import jwt from 'jsonwebtoken'
+
+import {} from '../types/types'
 
 const secretKey = "ultrasecretpassword1234_-*/"
 
@@ -9,7 +9,6 @@ const secretKey = "ultrasecretpassword1234_-*/"
 export function verifyToken(req: Request, res: Response, next: NextFunction) {
     // const header = req.header("Authorization") || "";
     // const token = header.split(" ")[1];
-    console.log(req.cookies)
     const token = req.cookies.token || ""
 
     try {
@@ -20,7 +19,7 @@ export function verifyToken(req: Request, res: Response, next: NextFunction) {
             
             const payload = jwt.verify(token, secretKey) as { username: string };
             req.username = payload.username;
-            console.log(req.username)
+            console.log("Usuario logueado: ", req.username)
         }
         next();
         return;

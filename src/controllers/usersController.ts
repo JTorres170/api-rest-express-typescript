@@ -1,54 +1,16 @@
-import { UserEntry, newUserEntry } from "../types/";
 import { Request, Response } from 'express';
 
-import jwt from 'jsonwebtoken'
+import { UserEntry, newUserEntry } from "../types/";
 
 // Imports data
 import userData from '../dataAccess/users.json'
 
 const users: UserEntry[] = userData as UserEntry[]
-const secretKey = "ultrasecretpassword1234_-*/"
 
 // Class with every function to use
 export class UsersController {
     constructor() {}
 
-    // Generates and returns a token to prove the user and password provided
-    login(req: Request, res: Response) {
-        try {
-            const username = req.body.username;
-            const password = req.body.password;
-
-            if (!username || !password) {
-                return res.status(400).json({ message: "Username and password are required" });
-            }
-
-            let authenticated = false
-            for (let i= 0; i< userData.length; i++) {
-                if (userData[i].username === username && userData[i].password === password) {
-                    authenticated = true
-                    const token = jwt.sign({ username }, secretKey, { expiresIn: "1h" });
-                    res.cookie('token', token, {httpOnly: true, expires: new Date(Date.now() + 3600000)})
-
-                    return res.status(200).json({ token });
-                }
-            }
-            if (!authenticated) {
-                return res.status(401).json({ message: "Authentication failed" });
-            }
-        } catch (error) {
-            return res.status(500).json({ message: "Internal server error" });
-        }
-
-        return res.status(500).json({ message: "Unexpected error occurred" });
-    };
-
-    // Verifys the token and let you know if it is correct or not by using the
-    // verifyToken function
-    protected(_req: Request, res: Response) {
-        return res.status(200).json({ message: "You have access" });
-    };
-    
     // Return every user stored
     getUsers(_req: Request, res: Response) {
         if (users) {
