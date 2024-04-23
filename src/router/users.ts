@@ -1,14 +1,14 @@
 import express from "express";
 
 import { UsersController } from "../controllers/usersController";
-import { verifyToken } from '../middlewares/authorizer'
+//import { verifyToken } from '../middlewares/authorizer'
 
 const router = express.Router();
 router.use(express.json());
 
 const usersController = new UsersController();
 
-router.get("/users", verifyToken, usersController.getUsers);
+router.get("/users", usersController.getUsers);
 /**
  * @swagger
  * /users/users:

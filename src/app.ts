@@ -41,3 +41,5 @@ app.listen(PORT, () => {
   // Implement swagger
   swaggerDocs(app, PORT)
 });
+
+export default app

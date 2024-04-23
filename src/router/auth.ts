@@ -15,7 +15,9 @@ router.post("/login", authController.login);
  *     summary: Logea en la web
  *     description: Logea en la web y genera un token de autentificacion
  *     tags:
- *      - Authoritation
+ *      - Authorization
+ *     security:
+ *       - ApiKeyAuth: []
  *     requestBody:
  *       required: true
  *       content:

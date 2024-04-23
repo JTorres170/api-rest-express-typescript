@@ -23,7 +23,7 @@ export class AuthController {
                 if (userData[i].username === username && userData[i].password === password) {
                     authenticated = true
                     const token = jwt.sign({ username }, secretKey, { expiresIn: "1min" });
-                    res.cookie('token', token, {httpOnly: true, expires: new Date(Date.now() + 3600000)})
+                    res.cookie('token', token, {httpOnly: true, expires: new Date(Date.now() + 60000)});
 
                     return res.status(200).json({ token });
                 }
